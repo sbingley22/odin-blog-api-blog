@@ -1,9 +1,11 @@
 import './App.css'
+import Header from "./components/Header"
 
 function App() {
   return (
     <>
-      <h1>App page!</h1>
+      <Header />
+      <h1>Seans blog. Click blogs to see the blogs.</h1>
     </>
   )
 }

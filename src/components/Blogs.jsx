@@ -1,14 +1,6 @@
-import Button from "react-bootstrap/Button"
-import { useState } from "react"
+import Header from "./Header"
 
 export default function Blogs() {
-  const [isDark, setIsDark] = useState(true)
-
-  const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.setAttribute("data-bs-theme",
-    isDark ? "dark" : "light")
-  }
 
   const blogs = [
     {
@@ -25,11 +17,7 @@ export default function Blogs() {
 
   return (
     <div>
-      <div>
-        <h3>Seans Blog</h3>
-        <Button variant="secondary" onClick={toggleTheme}>{isDark ? "Light" : "Dark"}</Button>
-      </div>
-      
+      <Header />
       {blogs.map( blog => (
         <div key={blog.url}>
           <a href={blog.url}>
