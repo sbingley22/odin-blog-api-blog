@@ -1,29 +1,31 @@
-import Button from "react-bootstrap/Button"
-import { useState } from "react"
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { useState } from "react";
 
 export default function Header() {
-  const [isDark, setIsDark] = useState(true)
+  const [isDark, setIsDark] = useState(true);
+
   const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.setAttribute("data-bs-theme",
-    isDark ? "dark" : "light")
+    setIsDark(!isDark);
+    document.documentElement.setAttribute("data-bs-theme", isDark ? "dark" : "light");
+  };
+
+  const navbarStyle = {
+    backgroundColor: isDark ? "#f8f9fa" : "#343a40",
+    borderRadius: "10px",
   }
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-4">
+    <Navbar style={navbarStyle}>
+      <Container>
+        <Navbar.Brand href={window.location.origin + "/blogs"}>
           <h3>Seans Blog</h3>
-        </div>
-        <div className="col-md-4 d-flex justify-content-center align-items-center">
-          <a href={window.location.origin + "/blogs"}>
-            <h4>Blogs</h4>
-          </a>
-        </div>
-        <div className="col-md-4 d-flex justify-content-end align-items-center">
-          <Button variant="secondary" onClick={toggleTheme}>{isDark ? "Light" : "Dark"}</Button>
-        </div>
-      </div>
-    </div>
-  )
+        </Navbar.Brand>
+        <Nav className="justify-content-end">
+          <Button variant="secondary" onClick={toggleTheme}>
+            {isDark ? "Light" : "Dark"}
+          </Button>
+        </Nav>
+      </Container>
+    </Navbar>
+  );
 }
