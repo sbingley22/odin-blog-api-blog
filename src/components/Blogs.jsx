@@ -2,18 +2,6 @@ import { useState, useEffect } from "react"
 import Header from "./Header"
 
 export default function Blogs() {
-  const blogs1 = [
-    {
-      url: "/blogs/fake",
-      title: "Fake Blog",
-      content: "My fake blog post"
-    },
-    {
-      url: "/blogs/fake3",
-      title: "Fake Blog3",
-      content: "My fake blog post3"
-    }
-  ]
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
@@ -36,7 +24,7 @@ export default function Blogs() {
       <Header />
       <div className="row">
         {blogs.map((blog) => (
-          <div key={blog.url} className="col-md-6">
+          <div key={blog._id} className="col-md-6">
             <div className="card mb-4">
               <div className="card-body">
                 <a href={blog.url} className="text-decoration-none">
