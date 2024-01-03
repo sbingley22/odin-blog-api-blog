@@ -10,12 +10,12 @@ export default function Header() {
   };
 
   const navbarStyle = {
-    backgroundColor: isDark ? "#f8f9fa" : "#343a40",
+    backgroundColor: isDark ? "#e8e9ea" : "#343a40",
     borderRadius: "10px",
   }
 
   return (
-    <Navbar style={navbarStyle}>
+    <Navbar style={navbarStyle} className="mb-4 mt-0 px-5">
       <Container>
         <Navbar.Brand href={window.location.origin + "/blogs"}>
           <h3>Seans Blog</h3>
