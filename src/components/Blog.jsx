@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useLocation } from 'react-router-dom';
 import Header from "./Header"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
@@ -8,27 +9,26 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
 export default function Blog() {
-  const blog = {
-    url: "/blogs/fake",
-    title: "Fake Blog",
-    content: "My fake blog post"
-  }
-  const comments = [
-    {
-      blog: "blogId",
-      url: "aaaa",
-      name: "Jose Semedo",
-      date: "22/12/23",
-      content: "Im a footballer"
-    },
-    {
-      blog: "blogId2",
-      url: "bbbb",
-      name: "Bob",
-      date: "24/12/23",
-      content: "No you're not!"
+  const [blog, setBlog] = useState()
+  const [comments, setComments] = useState([])
+
+  const location = useLocation()
+
+  useEffect(()=>{
+    const fetchData = async () => {
+      try {
+        const url = `http://localhost:3000${location.pathname}`;
+        const response = await fetch(url);
+        const jsonData = await response.json()
+        setBlog(jsonData.blog)
+        setComments(jsonData.comments)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
     }
-  ]
+
+    fetchData()
+  },[])
 
   const [showCommentForm, setShowCommentForm] = useState(false)
 
@@ -36,10 +36,11 @@ export default function Blog() {
     <Container>
       <Header />
       <Row className="mt-3">
-        <Col>
+        {blog && <Col>
           <h1>{blog.title}</h1>
           <p className="text-start text-lg font-size-lg">{blog.content}</p>
-        </Col>
+          <h6 className="text-end">{blog.date_formatted}</h6>
+        </Col> }
       </Row>
       <Row className="mt-3">
         <Col>
@@ -75,14 +76,14 @@ export default function Blog() {
       <Row className="mt-3">
         <Col>
           {comments.map((comment) => (
-            <Card key={comment.url} className="mb-3">
+            <Card key={comment._id} className="mb-3">
               <Card.Body>
                 <div className="d-flex justify-content-between">
                   <div>
                     <h5>{comment.name}</h5>
                   </div>
                   <div className="text-muted">
-                    <h6>{comment.date}</h6>
+                    <h6>{comment.date_formatted}</h6>
                   </div>
                 </div>
                 <p className="text-start">{comment.content}</p>
