@@ -1,29 +1,35 @@
+import { useState, useEffect } from "react"
 import Header from "./Header"
 
 export default function Blogs() {
-
-  const blogs = [
+  const blogs1 = [
     {
       url: "/blogs/fake",
       title: "Fake Blog",
       content: "My fake blog post"
     },
     {
-      url: "/blogs/fake2",
-      title: "Fake Blog2",
-      content: "My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2My fake blog post2"
-    },
-    {
       url: "/blogs/fake3",
       title: "Fake Blog3",
       content: "My fake blog post3"
-    },
-    {
-      url: "/blogs/fake5",
-      title: "Fake Blog5",
-      content: "My fake blog post5"
     }
   ]
+  const [blogs, setBlogs] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/blogs')
+        const jsonData = await response.json()
+        setBlogs(jsonData)
+        console.log(jsonData)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   return (
     <div>
