@@ -3,6 +3,8 @@ import Header from "./Header"
 import { Link } from "react-router-dom"
 import { useLocation } from 'react-router-dom';
 
+const serverUrl = "http://localhost:3000"
+
 export default function Blogs() {
   const [blogs, setBlogs] = useState([])
 
@@ -11,11 +13,10 @@ export default function Blogs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `http://localhost:3000${location.pathname}`;
+        const url = `${serverUrl}${location.pathname}`;
         const response = await fetch(url);
         const jsonData = await response.json()
         setBlogs(jsonData)
-        //console.log(jsonData)
       } catch (error) {
         console.error('Error fetching data:', error)
       }

@@ -8,16 +8,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
+const serverUrl = "http://localhost:3000"
+
 export default function Blog() {
   const [blog, setBlog] = useState()
   const [comments, setComments] = useState([])
 
   const location = useLocation()
+  const apiUrl = `${serverUrl}${location.pathname}`
 
   useEffect(()=>{
     const fetchData = async () => {
       try {
-        const url = `http://localhost:3000${location.pathname}`;
+        const url = apiUrl;
         const response = await fetch(url);
         const jsonData = await response.json()
         setBlog(jsonData.blog)
@@ -31,6 +34,40 @@ export default function Blog() {
   },[])
 
   const [showCommentForm, setShowCommentForm] = useState(false)
+  const [errors, setErrors] = useState([])
+
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+
+    const commentData = {
+      name: event.target.elements.name.value,
+      comment: event.target.elements.comment.value,
+    };
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(commentData),
+      });
+  
+      if (response.ok) {
+        // Comment posted successfully, reload the page
+        window.location.reload();
+      } else if (response.status == 400) {
+        // Form data incorrect. Display errors to user
+        const errorData = await response.json()
+        const errors = errorData.details
+        setErrors(errors.map(error => error.msg))
+      } else {
+        console.error('Failed to save comment.');
+      }
+    } catch (error) {
+      console.error('Error posting comment:', error);
+    }
+  };
 
   return (
     <Container>
@@ -47,7 +84,7 @@ export default function Blog() {
           {showCommentForm ? (
             <Card>
               <Card.Body>
-                <Form action={blog.url + "/comments"} method="POST">
+                <Form onSubmit={handleCommentSubmit} method="POST">
                   <Form.Group controlId="name">
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="text" name="name" />
@@ -62,6 +99,9 @@ export default function Blog() {
                   </Button>
                 </Form>
               </Card.Body>
+              { errors && errors.map( (error, index) => (
+                <p key={index}>{error}</p>
+              )) }
             </Card>
           ) : (
             <Button

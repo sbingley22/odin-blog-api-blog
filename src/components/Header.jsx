@@ -10,19 +10,12 @@ export default function Header() {
     document.documentElement.setAttribute("data-bs-theme", isDark ? "dark" : "light");
   };
 
-  const navbarStyle = {
-    backgroundColor: isDark ? "#e8e9ea" : "#343a40",
-    borderRadius: "10px",
-  }
-
   return (
-    <Navbar style={navbarStyle} className="mb-4 mt-0 px-5">
+    <Navbar className="mb-4 mt-0 px-5">
       <Container>
-        {/* <Navbar.Brand href={window.location.origin + "/blogs"}> */}
         <Link to={window.location.origin + "/blogs"} style={{ textDecoration: "none", color: "inherit" }}>
           <h3>Seans Blog</h3>
         </Link>
-        {/* </Navbar.Brand> */}
         <Nav className="justify-content-end">
           <Button variant="secondary" onClick={toggleTheme}>
             {isDark ? "Light" : "Dark"}
