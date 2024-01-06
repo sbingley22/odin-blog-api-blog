@@ -13,6 +13,7 @@ const serverUrl = import.meta.env.VITE_API_URL
 export default function Blog() {
   const [blog, setBlog] = useState()
   const [comments, setComments] = useState([])
+  const [reload, setReload] = useState(false)
 
   const location = useLocation()
   const apiUrl = `${serverUrl}${location.pathname}`
@@ -55,7 +56,8 @@ export default function Blog() {
   
       if (response.ok) {
         // Comment posted successfully, reload the page
-        window.location.reload(true);
+        //window.location.reload(true);
+        setReload(!reload)
       } else if (response.status == 400) {
         // Form data incorrect. Display errors to user
         const errorData = await response.json()
