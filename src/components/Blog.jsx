@@ -58,6 +58,7 @@ export default function Blog() {
         // Comment posted successfully, reload the page
         //window.location.reload(true);
         setReload(!reload)
+        setShowCommentForm(false)
       } else if (response.status == 400) {
         // Form data incorrect. Display errors to user
         const errorData = await response.json()
