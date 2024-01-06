@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 
-const serverUrl = import.meta.env.VITE_API_URL.slice(0,-1)
+const serverUrl = import.meta.env.VITE_API_URL
 
 export default function Blog() {
   const [blog, setBlog] = useState()

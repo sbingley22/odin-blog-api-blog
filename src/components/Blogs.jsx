@@ -3,7 +3,7 @@ import Header from "./Header"
 import { Link } from "react-router-dom"
 import { useLocation } from 'react-router-dom';
 
-const serverUrl = import.meta.env.VITE_API_URL.slice(0,-1)
+const serverUrl = import.meta.env.VITE_API_URL
 console.log(serverUrl)
 export default function Blogs() {
   const [blogs, setBlogs] = useState([])
