@@ -32,7 +32,7 @@ export default function Blog() {
     }
 
     fetchData()
-  },[])
+  },[reload])
 
   const [showCommentForm, setShowCommentForm] = useState(false)
   const [errors, setErrors] = useState([])
